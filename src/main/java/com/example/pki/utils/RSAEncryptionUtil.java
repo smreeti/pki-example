@@ -12,35 +12,35 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
 @Slf4j
-public class RSAEncryptionUtil {
+class RSAEncryptionUtil {
 
-    public static byte[] generateSignature(byte[] data, String privateKeyPath) throws Exception {
+    static byte[] generateSignature(byte[] data, String privateKeyPath) throws Exception {
         Signature signature = Signature.getInstance("SHA256withRSA");
         signature.initSign(getPrivateKey(privateKeyPath));
         signature.update(data);
         return signature.sign();
     }
 
-    public static boolean verifySignature(String data, String publicKey, byte[] signature) throws Exception {
+    static boolean verifySignature(String data, String publicKey, byte[] signature) throws Exception {
         Signature publicSignature = Signature.getInstance("SHA256withRSA");
         publicSignature.initVerify(getPublicKey(publicKey));
         publicSignature.update(data.getBytes());
         return publicSignature.verify(signature);
     }
 
-    public static byte[] encrypt(String data, String publicKey) throws Exception {
+    static byte[] encrypt(String data, String publicKey) throws Exception {
         Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
         cipher.init(Cipher.ENCRYPT_MODE, getPublicKey(publicKey));
         return cipher.doFinal(data.getBytes());
     }
 
-    public static String decrypt(byte[] data, String privateKey) throws Exception {
+    static String decrypt(byte[] data, String privateKey) throws Exception {
         Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
         cipher.init(Cipher.DECRYPT_MODE, getPrivateKey(privateKey));
         return new String(cipher.doFinal(data));
     }
 
-    public static PrivateKey getPrivateKey(String base64PrivateKey) {
+    private static PrivateKey getPrivateKey(String base64PrivateKey) {
         try {
             PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(Base64.getDecoder().decode(base64PrivateKey.getBytes()));
 
@@ -53,7 +53,7 @@ public class RSAEncryptionUtil {
         }
     }
 
-    public static PublicKey getPublicKey(String base64PublicKey) {
+    private static PublicKey getPublicKey(String base64PublicKey) {
         try {
             X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.getDecoder().decode(base64PublicKey.getBytes()));
 

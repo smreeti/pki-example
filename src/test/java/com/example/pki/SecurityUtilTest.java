@@ -9,8 +9,8 @@ public class SecurityUtilTest extends SecurityUtil {
 
     public static void main(String[] args) throws Exception {
         JsonObject jsonObject = Json.createObjectBuilder()
-                .add("url", "www.callback.com")
-                .add("remarks", "Test refund")
+                .add("Greeting", "Hello World")
+                .add("Description", "This is PKI Example Project")
                 .build();
         JsonObject requestWrapper = generateWrapperPayload(jsonObject);
         responseValidator(requestWrapper.toString());
