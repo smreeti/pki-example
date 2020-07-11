@@ -13,6 +13,8 @@ clients. The client also needs to maintain the key pair on their side too. The p
 used for signing or encrypting the message and public key is used to verify or decrypt the
 message signed by their corresponding private key.
 
-Note: The whitespace, newline and other special characters on the data section generates
+Note: 
+i. First Debug SecurityUtilTest for better understanding
+ii. The whitespace, newline and other special characters on the data section generates
 different signature value. Therefore, please ensure no such characters are added while
 constructing message
